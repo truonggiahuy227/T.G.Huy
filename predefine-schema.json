@@ -1,9 +1,14 @@
 {
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "https://github.com/truonggiahuy227/T.G.Huy/blob/master/predefine-schema.json#",
-   
-    "type": "string",
-    "title": "Thong tin dinh danh ung dung",
-    "enum": ["dev", "staging", "uat", "prod"],
-    "default": "dev"
+    "type": "object",
+    "defs": {
+        "env": {
+            "type": "string",
+            "title": "Thong tin dinh danh ung dung",
+            "enum": ["dev", "staging", "uat", "prod"],
+            "default": "dev"
+        }
+    }
     
 }
