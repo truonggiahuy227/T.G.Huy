@@ -1,5 +1,5 @@
 {
-    "$id": "https://github.com/truonggiahuy227/T.G.Huy/blob/master/predefined.values.schema.json#",
+    "$id": "https://github.com/truonggiahuy227/T.G.Huy/blob/master/predefine-schema.json#",
    
     "type": "string",
     "title": "Thong tin dinh danh ung dung",
