@@ -2,9 +2,6 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "postgresql": {
-            "type": "object",
-            "properties": {
                 "env": {
                     "type": "string",
                     "title": "Thong tin dinh danh ung dung",
@@ -68,8 +65,7 @@
                             }
                         }
                     }
-                }
-            },
+                },
             "if": {
                 "properties": {
                     "env": { "enum": ["dev", "staging", "uat"] }
@@ -91,6 +87,6 @@
                 } 
             }
 
-        }
+        
     }
 }
