@@ -1,0 +1,96 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "postgresql": {
+            "type": "object",
+            "properties": {
+                "env": {
+                    "type": "string",
+                    "title": "Thong tin dinh danh ung dung",
+                    "enum": ["dev", "staging", "uat", "prod"],
+                    "default": "dev"
+                },
+                "password": {
+                    "type": "string",
+                    "title": "Thiet lap mat khau trong nguoi dung thuong",
+                    "description": "Mac dinh la mot chuoi 10 ky tu ngau nhien neu de trong",
+                    "pattern": "^[a-zA-Z0-9-_@$!%*#?&]+$",
+                    "maxLength": 20,
+                    "minLength": 10
+                },
+                "size": {
+                    "type": "string",
+                    "title": "Kich thuoc Persistent Volume cua MySQL",
+                    "description": "Moi truong la dev, gia tri tu 0-2Gi\nMoi truong la staging va uat, gia tri tu 0-4Gi\nMoi truong la prod, gia tri tu 0-8Gi\nNeu du an muon kich thuoc volume lon hon, hay lien he team Xplat-ac de duoc tu van them.",
+                    "form": true,
+                    "render": "slider",
+                    "sliderMin": 1,
+                    "sliderMax": 20,
+                    "sliderUnit": "Gi"
+                },
+                "storageClass": {
+                    "title": "Loai storage su dung",
+                    "type": "string",
+                    "description": "Moi truong la \"dev\", \"staging\", \"uat\" co the nhan cac gia tri: \"xplat-bronze-single\", \"xplat-ceph-bronze-rbd\", \"xplat-ceph-bronze-cephfs\" \nMoi truong la \"prod\" lien he team Xplat-ac de duoc tu van them!",
+                    "default": "xplat-ceph-bronze-rbd"
+                },
+                "resources": {
+                    "type": "object",
+                    "description": "Cau hinh cac tai nguyen cho primary database",
+                    "properties": {
+                        "requests": {
+                            "type": "object",
+                            "required": ["cpu", "memory"],
+                            "properties": {
+                                "cpu": {
+                                    "type": "string",
+                                    "form": true,
+                                    "description": "CPU Requests co gia tri tu 10m den 500m",
+                                    "render": "slider",
+                                    "title": "CPU Request",
+                                    "sliderMin": 10,
+                                    "sliderMax": 500,
+                                    "sliderUnit": "m",
+                                    "pattern": "(^[1-9][0-9]{1,2})m$"
+                                },
+                                "memory": { 
+                                    "type": "string",
+                                    "form": true,
+                                    "render": "slider",
+                                    "title": "Memory Request",
+                                    "description": "Memory Requests co gia tri tu 10Mi den 2048Mi",
+                                    "sliderMin": 10,
+                                    "sliderMax": 2048,
+                                    "sliderUnit": "Mi",
+                                    "pattern": "^([1-9][0-9]{1,2}|1[0-9]{3}|20[0-4][0-7]|^2048)Mi$"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "if": {
+                "properties": {
+                    "env": { "enum": ["dev", "staging", "uat"] }
+                    }
+                },
+            "then": { 
+                "properties": {
+                    "primary":{
+                        "properties": {
+                            "persistence": {
+                                "properties": {
+                                    "storageClass": {  
+                                        "enum": ["xplat-bronze-single", "xplat-ceph-bronze-rbd", "xplat-ceph-bronze-cephfs"]   
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } 
+            }
+
+        }
+    }
+}
