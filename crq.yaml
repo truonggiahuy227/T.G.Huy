@@ -1,8 +1,14 @@
-apiVersion: v1
-kind: ResourceQuota
+# apiVersion: v1
+# kind: ResourceQuota
+apiVersion: quota.openshift.io/v1
+kind: ClusterResourceQuota
 metadata:
   name: crq-sample
 spec:
+  selector:
+    annotations: 
+      openshift.io/requester: ac-admin
+    labels: null 
   hard:
     services.nodeports: '0'
     xplat-ceph-silver.storageclass.storage.k8s.io/requests.storage: '0'
