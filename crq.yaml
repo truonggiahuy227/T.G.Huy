@@ -1,0 +1,32 @@
+kind: AppliedClusterResourceQuota
+apiVersion: quota.openshift.io/v1
+metadata:
+  name: crq-sample
+spec:
+  selector:
+    labels: null
+    annotations:
+      openshift.io/node-selector: node-role.kubernetes.io/worker=''
+  quota:
+    hard:
+      services.nodeports: '0'
+      xplat-ceph-silver.storageclass.storage.k8s.io/requests.storage: '0'
+      ac-silver-shared.storageclass.storage.k8s.io/requests.storage: '0'
+      xplat-ceph-silver-cephfs.storageclass.storage.k8s.io/requests.storage: '0'
+      secrets: '200'
+      services.loadbalancers: '0'
+      persistentvolumeclaims: '100'
+      ephemeral-storage: 20Gi
+      requests.memory: 48Gi
+      ac-bronze-single.storageclass.storage.k8s.io/requests.storage: 600Gi
+      pods: '200'
+      ac-bronze-shared.storageclass.storage.k8s.io/requests.storage: '0'
+      requests.storage: 600Gi
+      ac-gold-single.storageclass.storage.k8s.io/requests.storage: '0'
+      limits.cpu: '72'
+      ac-gold-shared.storageclass.storage.k8s.io/requests.storage: '0'
+      limits.memory: 288Gi
+      configmaps: '400'
+      services: '200'
+      requests.cpu: '12'
+      ac-silver-single.storageclass.storage.k8s.io/requests.storage: '0'
